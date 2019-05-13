@@ -1,0 +1,10 @@
+{
+	"files.exclude": {
+		"/Users/xinzhaoli/Developer/Unreal_Projects/BattleTank/BattleTank/.output": true,
+		"/Users/xinzhaoli/Developer/Unreal_Projects/BattleTank/BattleTank/.vscode": true,
+		"/Users/xinzhaoli/Developer/Unreal_Projects/BattleTank/BattleTank/BattleTank.xcworkspace": true,
+		"/Users/xinzhaoli/Developer/Unreal_Projects/BattleTank/BattleTank/Content": true,
+		"/Users/xinzhaoli/Developer/Unreal_Projects/BattleTank/BattleTank/Intermediate": true,
+		"/Users/xinzhaoli/Developer/Unreal_Projects/BattleTank/BattleTank/Saved": true
+	}
+}
