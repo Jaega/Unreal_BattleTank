@@ -13,9 +13,22 @@ void ATankPlayerController::BeginPlay()
         UE_LOG(LogTemp, Warning, TEXT("Controlled Tank: %s"), *PossessedTank->GetName());
     }
 }
+
+void ATankPlayerController::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+    UE_LOG(LogTemp, Warning, TEXT("Ticking!"));
+    AimTowardsCrosshair();
+}
+
 ATank* ATankPlayerController::GetControlledTank() const
 {
     return Cast<ATank>(GetPawn());
+}
+
+void ATankPlayerController::AimTowardsCrosshair()
+{
+
 }
 
 
