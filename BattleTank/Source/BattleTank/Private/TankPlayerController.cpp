@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
+#define OUT
 void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
@@ -28,7 +29,20 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
+    // Get World location of linetrace thgrough crosshair
+    FVector OutHitLocation; // OUT parameter
+    // if it hits landscape
+    if(GetSightRayHitLocation(OUT OutHitLocation))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString());
+    }
+        // tell controlled tank to aim at this point
+}
 
+bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
+{
+    HitLocation = FVector(1.0);
+    return true;
 }
 
 
