@@ -5,16 +5,18 @@
 void ATankAIController::BeginPlay()
 {
     Super::BeginPlay();
-    UE_LOG(LogTemp, Warning, TEXT("AI Controller Begin Play"));
+}
 
-    auto PlayerTank = GetPlayerTank();
-    if(!PlayerTank)
+void ATankAIController::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+    if(GetPlayerTank())
     {
-        UE_LOG(LogTemp, Warning, TEXT("AI Controller can't find player tank!"));
-    } else {
-        UE_LOG(LogTemp, Warning, TEXT("AI Controller found player: %s"), *PlayerTank->GetName());
+        // TODO move towards the player
+        // Aim at the player
+        GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+        // fire if ready
     }
-    
 }
 ATank* ATankAIController::GetControlledTank() const
 {
