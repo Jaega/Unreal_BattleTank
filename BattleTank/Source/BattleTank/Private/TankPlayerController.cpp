@@ -3,17 +3,7 @@
 #include "TankPlayerController.h"
 void ATankPlayerController::BeginPlay()
 {
-    Super::BeginPlay();
-    UE_LOG(LogTemp, Warning, TEXT("Player Controller Begin Play"));
-    auto PossessedTank = GetControlledTank();
-    if(!PossessedTank)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Play Controller not possessing a tank!"));
-    } else {
-        UE_LOG(LogTemp, Warning, TEXT("Controlled Tank: %s"), *PossessedTank->GetName());
-    }
-
-    
+    Super::BeginPlay();    
 }
 
 void ATankPlayerController::Tick(float DeltaSeconds)
@@ -34,7 +24,6 @@ void ATankPlayerController::AimTowardsCrosshair()
     // if it hits landscape
     if(GetSightRayHitLocation(OutHitLocation))
     {
-        //UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *OutHitLocation.ToString());
         GetControlledTank()->AimAt(OutHitLocation);
     }
         // tell controlled tank to aim at this point
@@ -47,7 +36,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
     GetViewportSize(ViewportSizeX, ViewportSizeY);
     
     FVector2D ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
-    //UE_LOG(LogTemp, Warning, TEXT("ScreenLocation: %s"), *ScreenLocation.ToString());
     // De-project the screen position of the crosshair to a world direction
     FVector LookDirection; 
     if(GetLookDirection(ScreenLocation, LookDirection))
@@ -72,7 +60,6 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
     FHitResult OutHitResult;
     auto StartLocation = PlayerCameraManager->GetCameraLocation();
     auto EndLocation = StartLocation + LookDirection * LineTraceRange;
-    //FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
     
    if(GetWorld()->LineTraceSingleByChannel(
         OutHitResult,
