@@ -8,6 +8,16 @@ void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* 
     LeftTrack = LeftTrackToSet;
     RightTrack = RightTrackToSet;
 }
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
+{
+    //auto TankName = GetOwner()->GetName();
+    auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+    auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+    auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
+    IntendMoveForward(ForwardThrow);
+    //auto MoveVelocityString = MoveVelocity.ToString();
+    //UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s"), *TankName, *MoveVelocityString);
+}
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
