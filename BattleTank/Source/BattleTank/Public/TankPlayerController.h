@@ -2,12 +2,12 @@
 
 #pragma once
 
-
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
 class ATank;
+class UTankAimingComponent;
 /**
  * 
  */
@@ -25,7 +25,9 @@ public:
 	// the crosshair intersects the world
 	void AimTowardsCrosshair();
 
-	
+protected:
+	UFUNCTION(BlueprintImplementableEvent, Category = Setup)
+	void FoundAimingComponent(UTankAimingComponent* AimingComponentReference);
 
 private:
 	UPROPERTY(EditDefaultsOnly)

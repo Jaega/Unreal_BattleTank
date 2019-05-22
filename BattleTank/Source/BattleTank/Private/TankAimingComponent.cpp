@@ -13,14 +13,14 @@ UTankAimingComponent::UTankAimingComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-
+	UE_LOG(LogTemp, Warning, TEXT("DONKEY: TAC constructs"));
 	// ...
 }
 
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {	
-	if(!Barrel) { return; }
+	if(!ensure(Barrel)) { return; }
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
@@ -52,16 +52,17 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
-	if(! BarrelToSet) { return; }
+	if(!ensure(BarrelToSet)) { return; }
 	Barrel = BarrelToSet;
 
-	if(! TurretToSet) { return; }
+	if(!ensure(TurretToSet)) { return; }
 	Turret = TurretToSet;
 }
 
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
+	if(!ensure(Barrel && Turret)) { return; }
 	// Calculate difference between current rotation and given AimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
