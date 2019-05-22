@@ -8,7 +8,6 @@
 
 class UTankBarrel; // Forward Declaration
 class UTankTurret;
-class UTankAimingComponent; 
 class AProjectile;
 
 UCLASS()
@@ -21,28 +20,19 @@ public:
 	ATank();
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	void AimAt(FVector HitLocation);
 	
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	/*
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet);
-	*/
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
-	
+		
 private:
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float LaunchSpeed = 10000; // TODO find sensible default
+	float LaunchSpeed = 10000; 
 	
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint; 

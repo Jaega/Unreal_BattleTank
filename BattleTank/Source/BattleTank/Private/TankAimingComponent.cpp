@@ -4,7 +4,6 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Kismet/GameplayStatics.h"
-//#include "Runtime/Core/Public/GenericPlatform/GenericPlatformMath.h"
 
 
 // Sets default values for this component's properties
@@ -18,7 +17,7 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
-void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+void UTankAimingComponent::AimAt(FVector HitLocation)
 {	
 	if(!ensure(Barrel)) { return; }
 

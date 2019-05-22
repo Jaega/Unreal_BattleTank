@@ -2,12 +2,11 @@
 
 #pragma once
 
-
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-class ATank;
+class UTankAimingComponent;
 /**
  * 
  */
@@ -19,7 +18,6 @@ class BATTLETANK_API ATankAIController : public AAIController
 public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-	
 private:
 	float AcceptanceRadius = 3000;
 };

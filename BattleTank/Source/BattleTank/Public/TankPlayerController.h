@@ -6,7 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
-class ATank;
 class UTankAimingComponent;
 /**
  * 
@@ -18,7 +17,6 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	
 public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	ATank* GetControlledTank() const;
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	// Start the tank moving the barrel so that a shot would hit where
@@ -28,7 +26,7 @@ public:
 protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = Setup)
 	void FoundAimingComponent(UTankAimingComponent* AimingComponentReference);
-
+	
 private:
 	UPROPERTY(EditDefaultsOnly)
 	float CrosshairXLocation = 0.5;
