@@ -3,6 +3,7 @@
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -12,10 +13,16 @@ UTankAimingComponent::UTankAimingComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
-	//UE_LOG(LogTemp, Warning, TEXT("DONKEY: TAC constructs"));
-	// ...
 }
 
+void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
+{
+	if(!ensure(BarrelToSet)) { return; }
+	Barrel = BarrelToSet;
+
+	if(!ensure(TurretToSet)) { return; }
+	Turret = TurretToSet;
+}
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
 {	
@@ -49,15 +56,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	
 }
 
-void UTankAimingComponent::Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
-{
-	if(!ensure(BarrelToSet)) { return; }
-	Barrel = BarrelToSet;
-
-	if(!ensure(TurretToSet)) { return; }
-	Turret = TurretToSet;
-}
-
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
@@ -69,4 +67,24 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	
 	Barrel->Elevate(DeltaRotator.Pitch); 
 	Turret->Rotate(DeltaRotator.Yaw); // TODO remove magic number
+}
+
+void UTankAimingComponent::Fire()
+{
+	if(!ensure(Barrel && ProjectileBlueprint)) { return; }
+	bool bIsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+
+	if(bIsReloaded) {
+		// Spawn a projectile at the socket location of the barrel
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),
+			Barrel->GetSocketRotation(FName("Projectile"))
+		);
+
+		Projectile->LaunchProjectile(LaunchSpeed);
+		// reset last fire time after firing
+		LastFireTime = FPlatformTime::Seconds();
+	}
+	
 }
