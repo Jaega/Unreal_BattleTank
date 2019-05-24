@@ -20,6 +20,7 @@ void ATankAIController::Tick(float DeltaSeconds)
         MoveToActor(PlayerPawn, AcceptanceRadius);
         // Aim at the player
         auto AimingComponent = ControlledPawn->FindComponentByClass<UTankAimingComponent>();
+        if(!ensure(AimingComponent)) { return; }
         AimingComponent->AimAt(PlayerPawn->GetActorLocation()); 
         // fire if ready
         AimingComponent->Fire();
