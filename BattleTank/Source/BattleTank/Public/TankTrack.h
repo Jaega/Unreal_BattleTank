@@ -19,6 +19,9 @@ public:
 	void SetThrottle(float Throttle);
 	
 private:
+	UTankTrack();
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+	
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float TrackMaxDrivingForce = 400000; // assume 40 ton tank, 1g acceleration
 };
