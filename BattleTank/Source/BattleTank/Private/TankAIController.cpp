@@ -6,7 +6,6 @@
 void ATankAIController::BeginPlay()
 {
     Super::BeginPlay();
-   
 }
 
 void ATankAIController::Tick(float DeltaSeconds)
@@ -16,14 +15,14 @@ void ATankAIController::Tick(float DeltaSeconds)
     auto ControlledPawn = GetPawn(); // Get AI's pawn
     if(!ensure(PlayerPawn)) { return; }
 
-        // Move towards the player
-        MoveToActor(PlayerPawn, AcceptanceRadius);
-        // Aim at the player
-        auto AimingComponent = ControlledPawn->FindComponentByClass<UTankAimingComponent>();
-        if(!ensure(AimingComponent)) { return; }
-        AimingComponent->AimAt(PlayerPawn->GetActorLocation()); 
-        // fire if ready
-        //AimingComponent->Fire();
+    // Move towards the player
+    MoveToActor(PlayerPawn, AcceptanceRadius);
+    // Aim at the player
+    auto AimingComponent = ControlledPawn->FindComponentByClass<UTankAimingComponent>();
+    if(!ensure(AimingComponent)) { return; }
+    AimingComponent->AimAt(PlayerPawn->GetActorLocation()); 
+    // fire if ready
+    //AimingComponent->Fire();
 }
 
 
