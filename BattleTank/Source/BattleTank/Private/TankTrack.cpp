@@ -43,8 +43,6 @@ void UTankTrack::DriveTrack()
     auto ForceLocation = GetComponentLocation();
     auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
     TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
-
-    UE_LOG(LogTemp, Warning, TEXT("%f: %s add force"), GetWorld()->GetTimeSeconds(), *GetName())
 }
 
 
