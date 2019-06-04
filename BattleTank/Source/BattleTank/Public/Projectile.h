@@ -8,6 +8,8 @@
 #include "Runtime/Engine/Classes/Particles/ParticleSystemComponent.h"
 #include "Runtime/Engine/Classes/PhysicsEngine/RadialForceComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+#include "Runtime/Engine/Classes/GameFramework/DamageType.h"
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -42,7 +44,10 @@ private:
 	URadialForceComponent* ExplosionForce = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	float DestroyDelay = 0;
+	float DestroyDelay = 2.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	float ProjectileDamage = 10.f;
 
 	void OnTimerExpire();
 };
