@@ -14,7 +14,7 @@ void ATankAIController::Tick(float DeltaSeconds)
     Super::Tick(DeltaSeconds);
     auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();  // Get Player's pawn
     auto ControlledPawn = GetPawn(); // Get AI's pawn
-    if(!ensure(PlayerPawn)) { return; }
+    if(!(PlayerPawn)) { return; }
 
     // Move towards the player
     MoveToActor(PlayerPawn, AcceptanceRadius);
@@ -35,7 +35,7 @@ void ATankAIController::SetPawn(APawn* InPawn)
     if(InPawn)
     {
         auto PossessedTank = Cast<ATank>(InPawn);
-        if( !ensure(PossessedTank)) { return; }
+        if( !PossessedTank) { return; }
         // Subscribe listener
         PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnPossessedTankDeath);
     }
@@ -43,7 +43,6 @@ void ATankAIController::SetPawn(APawn* InPawn)
 
 void ATankAIController::OnPossessedTankDeath()
 {
-    //UE_LOG(LogTemp, Warning, TEXT("Received!"))
     GetPawn()->DetachFromControllerPendingDestroy();
 }
 
